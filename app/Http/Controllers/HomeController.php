@@ -31,6 +31,13 @@ class HomeController extends Controller
         return back()->with('success', 'Sikeres feltöltés');
     }
 
+    public function editLoad($id) {
+        $edit = Datas::findOrFail($id);
+        $fuel = Datas::orderBy('date', 'desc')->get();
+
+        return view('welcome', compact('edit', 'fuel'));
+    }
+
     public function editFuel(Request $request, $id) {
         $validate = $request->validate([
             'date' => 'required|date',
@@ -40,9 +47,20 @@ class HomeController extends Controller
             'location' => 'required|string'
         ]);
 
-        $consumotion = ($request->consumption / $request->km) * 100;
-        $validate['consumption'] = $consumotion;
+        $consumption = ($request->quantity / $request->km) * 100;
+        $validate['consumption'] = $consumption;
 
         $fuel = Datas::findOrFail($id);
+        $fuel->fill($validate);
+        $fuel->save();
+
+        return redirect()->route('home.data')->with('success', 'Sikeres adatmódosítás!');
+    }
+
+    public function deleteFuel($id) {
+        $fuel = Datas::findOrFail($id);
+        $fuel->delete();
+
+        return back()->with('success', 'Sikeres törlés!');
     }
 }

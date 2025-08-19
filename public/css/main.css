@@ -52,6 +52,11 @@ nav {
     border-radius: 5px;
 }
 
+.input-form {
+    display: flex;
+    flex-direction: row;
+}
+
 .fuel-form-container form {
     display: flex;
     flex-direction: column;
@@ -59,6 +64,10 @@ nav {
 
 .fuel-form-container form label {
     margin: 10px 0px;
+}
+
+.fuel-data, .fuel-data-title {
+    min-width: 100px;
 }
 
 input {
@@ -113,4 +122,28 @@ input {
 .success {
     font-size: 20px;
     color: red;
+}
+
+.action-btns {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.form-icon {
+    height: 20px;
+}
+
+.data-upload-form-container,
+.statistics-container {
+    width: 50%;
+    margin-right: 20px;
+}
+
+.statistics-container,
+.statistics-data-wrapper,
+.table-column,
+.statistics-column-title {
+    display: flex;
+    flex-direction: column;
 }

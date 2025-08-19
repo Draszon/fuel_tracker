@@ -34,31 +34,51 @@
         </header>
 
         <main>
-            <section class="fuel-form-container">
-                <div>
-                    <form action="{{ route('home.store') }}" method="POST">
+            <section class="fuel-form-container input-form">
+                <div class="data-upload-form-container">
+                    <form action="{{ isset($edit) ? route('fuel.edit', $edit->id) : route('fuel.store') }}" method="POST">
                         @csrf
-                        @method('PUT')
+                        @if (isset($edit))
+                            @method('PUT')
+                        @endif
 
                         <h1 class="title">Adatok rögzítése</h1>
 
                         <label for="date" class="field-title">Dátum:</label>
-                        <input type="date" name="date" id="date" required>
+                        <input type="date" name="date" id="date" required value="{{ isset($edit) ? $edit->date : '' }}">
 
                         <label for="quantity" class="field-title">Mennyiség (L):</label>
-                        <input type="number" name="quantity" id="quantity" step="0.01" required>
+                        <input type="number" name="quantity" id="quantity" step="0.01" required value="{{ isset($edit) ? $edit->quantity : '' }}">
                         
                         <label for="km" class="field-title">Megtett KM:</label>
-                        <input type="number" name="km" id="km" required>
+                        <input type="number" name="km" id="km" required value="{{ isset($edit) ? $edit->km : '' }}">
                 
                         <label for="money" class="field-title">Összeg:</label>
-                        <input type="number" name="money" id="money" required>
+                        <input type="number" name="money" id="money" required value="{{ isset($edit) ? $edit->money : '' }}">
 
                         <label for="location" class="field-title">Benzinkút neve:</label>
-                        <input type="text" name="location" id="location" required>
+                        <input type="text" name="location" id="location" required value="{{ isset($edit) ? $edit->location : '' }}">
 
                         <button type="submit" class="submit-btn">Feltölt</button>
                     </form>
+                </div>
+
+                <div class="statistics-container">
+                    <h2 class="statistics-title title">Statisztikák</h2>
+
+                    <!--<div class="statistics-table-header">
+                        h2.statistics-column-title
+                    </div>-->
+                    <div class="statistics-data-wrapper">
+                        <div class="table-column">
+                            <h2 class="statistics-column-title">Havi átlag:</h2>
+                            <h2 class="statistics-column-title">Éves átlag:</h2>
+                            <h2 class="statistics-column-title">Összes:</h2>
+                        </div>
+                        <div class="table-column"></div>
+                        <div class="table-column"></div>
+                    </div>
+
                 </div>
             </section>
 
@@ -78,6 +98,7 @@
                         <h2 class="fuel-data-title">Fogyasztás</h2>
                         <h2 class="fuel-data-title">Összeg</h2>
                         <h2 class="fuel-data-title">Benzinkút neve</h2>
+                        <h2 class="fuel-data-title">Műveletek</h2>
                     </div>
                     @foreach ($fuel as $item)
                         <div class="fuel-list-item">
@@ -87,6 +108,21 @@
                             <p class="fuel-data">{{ $item->consumption }} L/100km</p>
                             <p class="fuel-data">{{ $item->money }} Ft</p>
                             <p class="fuel-data">{{ $item->location }}</p>
+
+                            <div class="action-btns">
+                                <form action="{{ route('fuel.delete', $item->id) }}" method="GET">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit">
+                                        <img src="{{ asset('images/cross.png') }}" class="form-icon" alt="törlés">
+                                    </button>
+                                </form>
+                                <form action="{{ route('fuel.editload', $item->id) }}" method="GET">
+                                    <button type="submit">
+                                        <img src="{{ asset('images/edit.png') }}" class="form-icon" alt="szerkesztés">
+                                    </button>
+                                </form>
+                            </div>
                         </div>
                     @endforeach
                 </div>
