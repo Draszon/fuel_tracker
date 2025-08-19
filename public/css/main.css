@@ -147,3 +147,21 @@ input {
     display: flex;
     flex-direction: column;
 }
+
+.statistics-column-title,
+.statistics-data {
+    width: 120px;
+    border-bottom: 1px solid black;
+    padding: 2px;
+}
+
+.statistics-data-wrapper {
+    display: flex;
+    flex-direction: row;
+}
+
+.statistics-table-header {
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px
+}

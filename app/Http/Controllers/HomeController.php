@@ -63,4 +63,28 @@ class HomeController extends Controller
 
         return back()->with('success', 'Sikeres törlés!');
     }
+
+    public function statistics(Request $request) {
+        $fuel = Datas::orderBy('date', 'desc')->get();
+        $month = $request->query('month');
+
+        $avgFuel = null;
+        $avgKm = null;
+        $avgConsumption = null;
+
+        if ($month) {
+            $start = \Carbon\Carbon::parse($month)->startOfMonth();
+            $end = \Carbon\Carbon::parse($month)->endOfMonth();
+
+            $fuels = Datas::whereBetween('date', [$start, $end])->get();
+            $kms = Datas::whereBetween('km', [$start, $end])->get();
+            $consumption = Datas::whereBetween('consumption', [$start, $end])->get();
+
+            $avgFuel = $fuels->avg('quantity');
+            $avgKm = $kms->avg('km');
+            $avgConsumption = $consumption->avg('consumption');
+        }
+
+        return view('welcome', compact('fuel', 'avgFuel', 'avgKm', 'avgConsumption'));
+    }
 }

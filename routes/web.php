@@ -7,9 +7,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home.data');
     Route::post('/store', [HomeController::class, 'store'])->name('fuel.store');
-    Route::get('/deletefuel/{id}', [HomeController::class, 'deleteFuel'])->name('fuel.delete');
+    Route::delete('/deletefuel/{id}', [HomeController::class, 'deleteFuel'])->name('fuel.delete');
     Route::get('/editload/{id}', [HomeController::class, 'editLoad'])->name('fuel.editload');
     Route::put('/editfuel/{id}', [HomeController::class, 'editFuel'])->name('fuel.edit');
+    Route::get('/statistics', [HomeController::class, 'statistics'])->name('statistics');
 });
 
 Route::get('/dashboard', function () {

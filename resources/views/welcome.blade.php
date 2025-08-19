@@ -66,17 +66,39 @@
                 <div class="statistics-container">
                     <h2 class="statistics-title title">Statisztikák</h2>
 
-                    <!--<div class="statistics-table-header">
-                        h2.statistics-column-title
-                    </div>-->
+                    <form action="{{ route('statistics') }}" method="get">
+                        <label for="month">Hónap kiválasztása:</label>
+                        <input type="month" name="month" id="month" required>
+                        <button type="submit" class="submit-btn">Lekérdez</button>
+                    </form>
+
+                    <div class="statistics-table-header">
+                        <h2 class="statistics-column-title"></h2>
+                        <h2 class="statistics-column-title">Üzemanyag</h2>
+                        <h2 class="statistics-column-title">Megtett táv</h2>
+                        <h2 class="statistics-column-title">Fogyasztás</h2>
+                    </div>
                     <div class="statistics-data-wrapper">
                         <div class="table-column">
                             <h2 class="statistics-column-title">Havi átlag:</h2>
                             <h2 class="statistics-column-title">Éves átlag:</h2>
                             <h2 class="statistics-column-title">Összes:</h2>
                         </div>
-                        <div class="table-column"></div>
-                        <div class="table-column"></div>
+                        <div class="statistic-datas-wrapper">
+                            <div class="statistics-data">{{ isset($avgFuel) ? $avgFuel : '' }} l</div>
+                            <div class="statistics-data">{{ isset($avgKm) ? $avgKm : '' }} l</div>
+                            <div class="statistics-data">{{ isset($avgConsumption) ? $avgConsumption : '' }} l</div>
+                        </div>
+                        <div class="statistic-datas-wrapper">
+                            <div class="statistics-data"> km</div>
+                            <div class="statistics-data"> km</div>
+                            <div class="statistics-data"> km</div>
+                        </div>
+                        <div class="statistic-datas-wrapper">
+                            <div class="statistics-data"> l</div>
+                            <div class="statistics-data"> l</div>
+                            <div class="statistics-data"> l</div>
+                        </div>
                     </div>
 
                 </div>
@@ -103,14 +125,14 @@
                     @foreach ($fuel as $item)
                         <div class="fuel-list-item">
                             <p class="fuel-data">{{ $item->date }}</p>
-                            <p class="fuel-data">{{ $item->quantity }} L</p>
+                            <p class="fuel-data">{{ $item->quantity }} l</p>
                             <p class="fuel-data">{{ $item->km }} km</p>
-                            <p class="fuel-data">{{ $item->consumption }} L/100km</p>
+                            <p class="fuel-data">{{ $item->consumption }} l/100km</p>
                             <p class="fuel-data">{{ $item->money }} Ft</p>
                             <p class="fuel-data">{{ $item->location }}</p>
 
                             <div class="action-btns">
-                                <form action="{{ route('fuel.delete', $item->id) }}" method="GET">
+                                <form action="{{ route('fuel.delete', $item->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit">
