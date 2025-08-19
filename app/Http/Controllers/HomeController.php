@@ -9,6 +9,9 @@ class HomeController extends Controller
 {
     public function index() {
         $fuel = Datas::orderBy('date', 'desc')->get();
+        foreach ($fuel as $item) {
+            $item->consumption = round($item->consumption, 1);
+        }
 
         return view('welcome', compact('fuel'));
     }
@@ -34,6 +37,9 @@ class HomeController extends Controller
     public function editLoad($id) {
         $edit = Datas::findOrFail($id);
         $fuel = Datas::orderBy('date', 'desc')->get();
+        foreach ($fuel as $item) {
+            $item->consumption = round($item->consumption, 1);
+        }
 
         return view('welcome', compact('edit', 'fuel'));
     }
@@ -66,25 +72,65 @@ class HomeController extends Controller
 
     public function statistics(Request $request) {
         $fuel = Datas::orderBy('date', 'desc')->get();
-        $month = $request->query('month');
+        foreach ($fuel as $item) {
+            $item->consumption = round($item->consumption, 1);
+        }
+        $date = $request->query('month');
 
-        $avgFuel = null;
-        $avgKm = null;
-        $avgConsumption = null;
+        $avgFuelM = null;
+        $avgKmM = null;
+        $avgConsumptionM = null;
 
-        if ($month) {
-            $start = \Carbon\Carbon::parse($month)->startOfMonth();
-            $end = \Carbon\Carbon::parse($month)->endOfMonth();
+        $avgFuelY = null;
+        $avgKmY = null;
+        $avgConsumptionY = null;
 
-            $fuels = Datas::whereBetween('date', [$start, $end])->get();
-            $kms = Datas::whereBetween('km', [$start, $end])->get();
-            $consumption = Datas::whereBetween('consumption', [$start, $end])->get();
+        if ($date) {
+            //havi adatok 
+            $startMonth = \Carbon\Carbon::parse($date)->startOfMonth();
+            $endMonth = \Carbon\Carbon::parse($date)->endOfMonth();
 
-            $avgFuel = $fuels->avg('quantity');
-            $avgKm = $kms->avg('km');
-            $avgConsumption = $consumption->avg('consumption');
+            $fuels = Datas::whereBetween('date', [$startMonth, $endMonth])->get();
+            $kms = Datas::whereBetween('date', [$startMonth, $endMonth])->get();
+            $consumption = Datas::whereBetween('date', [$startMonth, $endMonth])->get();
+
+            $avgFuelM = round($fuels->avg('quantity'), 1);
+            $avgKmM = round($kms->avg('km'), 1);
+            $avgConsumptionM = round($consumption->avg('consumption'), 1);
+
+            //éves adatok
+            $startYear = \Carbon\Carbon::parse($date)->startOfYear();
+            $endYear = \Carbon\Carbon::parse($date)->endOfYear();
+
+            $fuelsY = Datas::whereBetween('date', [$startYear, $endYear])->get();
+            $kmsY = Datas::whereBetween('date', [$startYear, $endYear])->get();
+            $consumptionY = Datas::whereBetween('date', [$startYear, $endYear])->get();
+
+            $avgFuelY = round($fuelsY->avg('quantity'), 1);
+            $avgKmY = round($kmsY->avg('km'), 1);
+            $avgConsumptionY = round($consumptionY->avg('consumption'), 1);
+
+            //összes adat
+            $fullFuel = Datas::whereBetween('date', [$startYear, $endYear])->get();
+            $fullKm = Datas::whereBetween('date', [$startYear, $endYear])->get();
+            $fullConsumption = Datas::whereBetween('date', [$startYear, $endYear])->get();
+
+            $fullFuelRound = round($fullFuel->sum('quantity'), 1);
+            $fullKmRound = round($fullKm->sum('km'), 1);
+            $fullConsumptionRound = round($fullConsumption->sum('consumption'), 1);
         }
 
-        return view('welcome', compact('fuel', 'avgFuel', 'avgKm', 'avgConsumption'));
+        return view('welcome', compact(
+            'fuel',
+            'avgFuelM',
+            'avgKmM',
+            'avgConsumptionM',
+            'avgFuelY',
+            'avgKmY',
+            'avgConsumptionY',
+            'fullFuelRound',
+            'fullKmRound',
+            'fullConsumptionRound'
+        ));
     }
 }

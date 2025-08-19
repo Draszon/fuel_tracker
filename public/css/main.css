@@ -57,6 +57,12 @@ nav {
     flex-direction: row;
 }
 
+@media (max-width: 1024px) {
+    .input-form {
+        flex-direction: column;
+    }
+}
+
 .fuel-form-container form {
     display: flex;
     flex-direction: column;

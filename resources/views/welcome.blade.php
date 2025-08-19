@@ -67,7 +67,7 @@
                     <h2 class="statistics-title title">Statisztikák</h2>
 
                     <form action="{{ route('statistics') }}" method="get">
-                        <label for="month">Hónap kiválasztása:</label>
+                        <label for="month">Év/Hónap kiválasztása:</label>
                         <input type="month" name="month" id="month" required>
                         <button type="submit" class="submit-btn">Lekérdez</button>
                     </form>
@@ -82,22 +82,22 @@
                         <div class="table-column">
                             <h2 class="statistics-column-title">Havi átlag:</h2>
                             <h2 class="statistics-column-title">Éves átlag:</h2>
-                            <h2 class="statistics-column-title">Összes:</h2>
+                            <h2 class="statistics-column-title">Évi összes:</h2>
                         </div>
                         <div class="statistic-datas-wrapper">
-                            <div class="statistics-data">{{ isset($avgFuel) ? $avgFuel : '' }} l</div>
-                            <div class="statistics-data">{{ isset($avgKm) ? $avgKm : '' }} l</div>
-                            <div class="statistics-data">{{ isset($avgConsumption) ? $avgConsumption : '' }} l</div>
+                            <div class="statistics-data">{{ isset($avgFuelM) ? $avgFuelM : '' }} l</div>
+                            <div class="statistics-data">{{ isset($avgFuelY) ? $avgFuelY : '' }} l</div>
+                            <div class="statistics-data">{{ isset($fullFuelRound) ? $fullFuelRound : '' }} l</div>
                         </div>
                         <div class="statistic-datas-wrapper">
-                            <div class="statistics-data"> km</div>
-                            <div class="statistics-data"> km</div>
-                            <div class="statistics-data"> km</div>
+                            <div class="statistics-data">{{ isset($avgKmM) ? $avgKmM : '' }} km</div>
+                            <div class="statistics-data">{{ isset($avgKmY) ? $avgKmY : '' }} km</div>
+                            <div class="statistics-data">{{ isset($fullKmRound) ? $fullKmRound : '' }} km</div>
                         </div>
                         <div class="statistic-datas-wrapper">
-                            <div class="statistics-data"> l</div>
-                            <div class="statistics-data"> l</div>
-                            <div class="statistics-data"> l</div>
+                            <div class="statistics-data">{{ isset($avgConsumptionM) ? $avgConsumptionM : '' }} l</div>
+                            <div class="statistics-data">{{ isset($avgConsumptionY) ? $avgConsumptionY : '' }} l</div>
+                            <div class="statistics-data">{{ isset($fullConsumptionRound) ? $fullConsumptionRound : '' }} l</div>
                         </div>
                     </div>
 
