@@ -11,6 +11,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/editload/{id}', [HomeController::class, 'editLoad'])->name('fuel.editload');
     Route::put('/editfuel/{id}', [HomeController::class, 'editFuel'])->name('fuel.edit');
     Route::get('/statistics', [HomeController::class, 'statistics'])->name('statistics');
+
+    Route::get('/service', function () {
+        return view('layouts.service');
+    })->name('service');
 });
 
 Route::get('/dashboard', function () {

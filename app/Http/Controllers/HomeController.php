@@ -13,7 +13,7 @@ class HomeController extends Controller
             $item->consumption = round($item->consumption, 1);
         }
 
-        return view('welcome', compact('fuel'));
+        return view('layouts.fuel', compact('fuel'));
     }
 
     public function store(Request $request) {
@@ -41,7 +41,7 @@ class HomeController extends Controller
             $item->consumption = round($item->consumption, 1);
         }
 
-        return view('welcome', compact('edit', 'fuel'));
+        return view('layouts.fuel', compact('edit', 'fuel'));
     }
 
     public function editFuel(Request $request, $id) {
@@ -120,7 +120,7 @@ class HomeController extends Controller
             $fullConsumptionRound = round($fullConsumption->sum('consumption'), 1);
         }
 
-        return view('welcome', compact(
+        return view('layouts.fuel', compact(
             'fuel',
             'avgFuelM',
             'avgKmM',

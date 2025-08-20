@@ -96,6 +96,17 @@ input {
     transition: background-color .2s ease;
 }
 
+.fuel-list-scroll {
+    overflow-x: auto;
+    width: 100%;
+}
+
+.fuel-list-item-haeder,
+.fuel-list-item {
+    min-width: 1024px;
+    display: flex;
+}
+
 .fuel-list {
     min-width: 650px;
 }
