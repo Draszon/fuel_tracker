@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
     public function index() {
-        $fuel = Datas::orderBy('date', 'desc')->get();
+        $fuel = Datas::orderBy('date', 'desc')->paginate(10);
         foreach ($fuel as $item) {
             $item->consumption = round($item->consumption, 1);
         }
@@ -36,7 +36,7 @@ class HomeController extends Controller
 
     public function editLoad($id) {
         $edit = Datas::findOrFail($id);
-        $fuel = Datas::orderBy('date', 'desc')->get();
+        $fuel = Datas::orderBy('date', 'desc')->paginate(10);
         foreach ($fuel as $item) {
             $item->consumption = round($item->consumption, 1);
         }
@@ -71,7 +71,7 @@ class HomeController extends Controller
     }
 
     public function statistics(Request $request) {
-        $fuel = Datas::orderBy('date', 'desc')->get();
+        $fuel = Datas::orderBy('date', 'desc')->paginate(10);
         foreach ($fuel as $item) {
             $item->consumption = round($item->consumption, 1);
         }

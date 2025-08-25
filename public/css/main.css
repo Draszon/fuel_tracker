@@ -182,3 +182,23 @@ input {
     flex-direction: row;
     margin-top: 10px
 }
+
+/* SERVICE */
+
+.service-form-container {
+    max-width: 1400px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: white;
+}
+
+.service-title {
+    font-size: 24px;
+}
+
+.service-list-form {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+/* SERVICE */

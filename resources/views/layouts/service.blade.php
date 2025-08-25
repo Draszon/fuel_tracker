@@ -3,5 +3,20 @@
 @section('title', 'Szerviznapló')
 
 @section('content')
-<h1>Ez egy szerviznapló!</h1>
+
+<section class="service-form-container">
+    <div class="service-list-form-wrapper">
+        <h1 class="service-title">Szervizadatok lekérdezése</h1>
+        <h2 class="service-category-title">Válaszd ki a szerviztevékenységet:</h2>    
+            <form action="" class="service-list-form">
+                <select name="service-type" id="">
+                     @foreach ($services as $service)
+                        <option value="{{ $service->name }}">{{ $service->name }}</option>
+                    @endforeach
+                </select>
+                <button type="submit" class="submit-btn">Lekérdez</button>
+            </form>
+    </div>
+</section>
+
 @endsection

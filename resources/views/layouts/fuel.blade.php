@@ -116,6 +116,7 @@
                             </div>
                         </div>
                     @endforeach
+                    <div class="mt-4">{{ $fuel->links() }}</div>
                 </div>
             </section>
 @endsection
