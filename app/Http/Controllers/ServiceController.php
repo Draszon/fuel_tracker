@@ -13,4 +13,11 @@ class ServiceController extends Controller
 
         return view('layouts.service', compact('services'));
     }
+
+    public function loadData(Request $request) {
+        $services = ServiceType::with('serviceEvents')->get();
+        $serviceType = $request->query('service-type');
+
+        return view('layouts.service', compact('serviceType', 'services'));
+    }
 }

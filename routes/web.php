@@ -14,6 +14,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/statistics', [HomeController::class, 'statistics'])->name('statistics');
 
     Route::get('/service', [ServiceController::class, 'index'])->name('service');
+    Route::get('/servicedataload', [ServiceController::class, 'loadData'])->name('service.getdata');
 
     Route::get('/dashboard', function () {
         return view('dashboard');
