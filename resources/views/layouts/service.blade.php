@@ -16,8 +16,16 @@
                 </select>
                 <button type="submit" class="submit-btn">Lekérdez</button>
             </form>
-            @if (isset($serviceType))
-                <p>{{ $serviceType }}</p>
+            @if (isset($serviceTypeRecord))
+                @foreach ($serviceTypeName as $item)
+                    <p>{{ $item->name }}</p>
+                @endforeach
+                
+                @foreach ($serviceTypeRecord as $service)
+                    <p>{{ $service->date }}</p>
+                    <p>{{ $service->current_km }}</p>
+                    <p>{{ $service->price }}</p>
+                @endforeach
             @endif
             
     </div>

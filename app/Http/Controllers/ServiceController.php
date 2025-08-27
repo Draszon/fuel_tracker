@@ -18,6 +18,9 @@ class ServiceController extends Controller
         $services = ServiceType::with('serviceEvents')->get();
         $serviceType = $request->query('service-type');
 
-        return view('layouts.service', compact('serviceType', 'services'));
+        $serviceTypeRecord = ServiceEvent::where('service_type_id', '=', $serviceType)->get();
+        $serviceTypeName = ServiceType::where('id', '=', $serviceType)->get();
+        //dd($serviceTypeName);
+        return view('layouts.service', compact('serviceTypeRecord', 'services', 'serviceTypeName'));
     }
 }
